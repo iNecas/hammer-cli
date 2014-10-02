@@ -8,6 +8,15 @@ HighLine.color_scheme = HighLine::SampleColorScheme.new
 # load i18n to get translations
 require 'hammer_cli/i18n'
 
+extra_argv_separator = '--'
+
+if separator_index = ARGV.index(extra_argv_separator)
+  EXTRA_ARGV = ARGV[(separator_index + 1)..-1]
+  ARGV[separator_index..-1] = []
+else
+  EXTRA_ARGV = []
+end
+
 require 'hammer_cli/options/normalizers'
 # create fake command instance to use some global args before we start
 class PreParser < Clamp::Command
